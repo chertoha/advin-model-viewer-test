@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const baseUrl = "intent://arvr.google.com/scene-viewer/1.0";
+
+      const params = {
+        // file: "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf",
+        // file: "wowin.glb",
+        file: "https://chertoha.github.io/advin-model-viewer-test/wowin.glb",
+
+        mode: "ar_only",
+        title: "Здійснити замовлення",
+        link: "https://wowin.ua/ajlend-uglovoj-divan-5-mestnyj?utm_source=arcore_sceneviewer&utm_medium=site&utm_content=ajlend-uglovoj-divan-5-mestnyj_BUY",
+        resizable: "false",
+      };
+
+      const intentParams = {
+        scheme: "https",
+        package: "com.google.ar.core",
+        action: "android.intent.action.VIEW",
+        "S.browser_fallback_url": "https://developers.google.com/ar",
+      };
+
+      let paramsRequest = "";
+      for (const param in params) {
+        paramsRequest += `${param}=${params[param]}&`;
+      }
+
+      if (paramsRequest) {
+        paramsRequest = paramsRequest.slice(0, paramsRequest.length - 1);
+      }
+
+      let intentParamsRequest = "";
+      for (const param in intentParams) {
+        intentParamsRequest += `${param}=${intentParams[param]};`;
+      }
+
+      //   console.log(intentParamsRequest);
+
+      const href =
+        baseUrl +
+        "?" +
+        paramsRequest +
+        "#Intent;" +
+        intentParamsRequest +
+        "end;";
+
+      //   window.location.replace(href);
+
+      const link = document.createElement("a");
+      link.href = href;
+      link.innerText = "AR Link";
+      document.body.appendChild(link);
+    </script>
+  </body>
+</html>
